@@ -1,1 +1,5 @@
-Flask==3.0.3
+Flask==3.0.3          # if you still use Flask somewhere
+streamlit             # required to run the Streamlit app
+pandas                # optional, only if your app uses it
+numpy                 # optional, only if your app uses it
+opencv-python         # optional, if your app does image processing
