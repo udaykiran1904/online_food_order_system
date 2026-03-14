@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card p-4 shadow-sm">
+      <h3 class="mb-3">Checkout</h3>
+      <p class="text-muted">Review your order and place it when ready.</p>
+      <ul class="list-group list-group-flush">
+        {% for item in cart_items %}
+          <li class="list-group-item d-flex justify-content-between">
+            <span>{{ item.name }} x {{ item.quantity }}</span>
+            <span>&#8377; {{ (item.price * item.quantity)|format_inr }}</span>
+          </li>
+        {% else %}
+          <li class="list-group-item text-muted">Your cart is empty.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="card p-4 shadow-sm">
+      <h3 class="mb-3">Order Summary</h3>
+      <p class="text-muted">Total amount</p>
+      <h2 class="text-warning">&#8377; {{ total|format_inr }}</h2>
+      <form method="post" action="{{ url_for('place_order') }}">
+        <button class="btn btn-warning w-100 mt-3" type="submit">Place Order</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

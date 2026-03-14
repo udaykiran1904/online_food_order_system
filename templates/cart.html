@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Your Cart</h2>
+<form method="post">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Food</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+        <tr>
+          <td>
+            <img src="{{ image_url(item.image) }}" class="thumb" alt="{{ item.name }}">
+            {{ item.name }}
+          </td>
+          <td>&#8377; {{ item.price|format_inr }}</td>
+          <td>
+            <input type="hidden" name="cart_id" value="{{ item.cart_id }}">
+            <input class="form-control form-control-sm" type="number" name="quantity" value="{{ item.quantity }}" min="0">
+          </td>
+          <td>&#8377; {{ (item.price * item.quantity)|format_inr }}</td>
+          <td><a class="btn btn-outline-danger btn-sm" href="{{ url_for('remove_cart', cart_id=item.cart_id) }}">Remove</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-muted">Your cart is empty.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-between align-items-center">
+    <h4>Total: &#8377; {{ total|format_inr }}</h4>
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-dark" type="submit">Update Cart</button>
+      <a class="btn btn-warning" href="{{ url_for('checkout') }}">Checkout</a>
+    </div>
+  </div>
+</form>
+{% endblock %}

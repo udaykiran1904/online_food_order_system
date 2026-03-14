@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block title %}Edit Food{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="card p-4 shadow-sm">
+      <h3 class="mb-3">Edit Food</h3>
+      <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label">Food Name</label>
+          <input class="form-control" type="text" name="name" value="{{ food.name }}" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Price</label>
+          <input class="form-control" type="number" name="price" min="0" step="0.01" value="{{ food.price }}" required> <span class="text-muted">&#8377;</span>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Image File (optional)</label>
+          <input class="form-control" type="file" name="image_file" accept="image/*">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Or Image URL (optional)</label>
+          <input class="form-control" type="text" name="image" value="{{ food.image }}">
+          <div class="form-text">If both file and URL are provided, the uploaded file will be used.</div>
+        </div>
+        <button class="btn btn-warning w-100" type="submit">Update</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

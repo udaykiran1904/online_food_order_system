@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block title %}All Orders{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">All Orders</h2>
+{% for order in orders %}
+  <div class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <div class="d-flex justify-content-between flex-wrap">
+        <div>
+          <h5 class="card-title">Order #{{ order.id }}</h5>
+          <p class="text-muted">Customer: {{ order.name }}</p>
+          <p class="text-muted">Placed on {{ order.date }}</p>
+        </div>
+        <div class="text-end">
+          <h4 class="text-warning">&#8377; {{ order.total_price|format_inr }}</h4>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for item in order_items[order.id] %}
+          <li class="list-group-item d-flex justify-content-between">
+            <span>{{ item.name }} x {{ item.quantity }}</span>
+            <span>&#8377; {{ (item.price * item.quantity)|format_inr }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% else %}
+  <p class="text-muted">No orders yet.</p>
+{% endfor %}
+{% endblock %}
